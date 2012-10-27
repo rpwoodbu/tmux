@@ -79,6 +79,7 @@ const struct cmd_entry *cmd_table[] = {
 	&cmd_pipe_pane_entry,
 	&cmd_previous_layout_entry,
 	&cmd_previous_window_entry,
+	&cmd_reflow_pane_entry,
 	&cmd_refresh_client_entry,
 	&cmd_rename_session_entry,
 	&cmd_rename_window_entry,

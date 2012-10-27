@@ -1770,6 +1770,7 @@ extern const struct cmd_entry cmd_paste_buffer_entry;
 extern const struct cmd_entry cmd_pipe_pane_entry;
 extern const struct cmd_entry cmd_previous_layout_entry;
 extern const struct cmd_entry cmd_previous_window_entry;
+extern const struct cmd_entry cmd_reflow_pane_entry;
 extern const struct cmd_entry cmd_refresh_client_entry;
 extern const struct cmd_entry cmd_rename_session_entry;
 extern const struct cmd_entry cmd_rename_window_entry;
@@ -1960,6 +1961,7 @@ void	 grid_move_cells(struct grid *, u_int, u_int, u_int, u_int);
 char	*grid_string_cells(struct grid *, u_int, u_int, u_int);
 void	 grid_duplicate_lines(
 	     struct grid *, u_int, struct grid *, u_int, u_int);
+void	 grid_reflow(struct grid *, struct grid *, u_int);
 
 /* grid-cell.c */
 u_int	 grid_cell_width(const struct grid_cell *);
