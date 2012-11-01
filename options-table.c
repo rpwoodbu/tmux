@@ -595,6 +595,11 @@ const struct options_table_entry window_options_table[] = {
 	  .default_num = 0
 	},
 
+	{ .name = "reflow",
+	  .type = OPTIONS_TABLE_FLAG,
+	  .default_num = 0
+	},
+
 	{ .name = "remain-on-exit",
 	  .type = OPTIONS_TABLE_FLAG,
 	  .default_num = 0
