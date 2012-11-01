@@ -39,16 +39,11 @@ cmd_reflow_pane_exec(struct cmd *self, struct cmd_ctx *ctx)
 {
 	struct args		*args = self->args;
 	struct window_pane	*wp;
-	struct grid		*gd;
 
 	if (cmd_find_pane(ctx, args_get(args, 't'), NULL, &wp) == NULL)
 		return (CMD_RETURN_ERROR);
-	gd = wp->base.grid;
 
-	struct grid *new_grid = grid_create(gd->sx, gd->sy, gd->hlimit);
-	grid_reflow(new_grid, gd, wp->sx);
-	wp->base.grid = new_grid;
-	grid_destroy(gd);
+	window_pane_reflow(wp);
 
 	return (CMD_RETURN_NORMAL);
 }

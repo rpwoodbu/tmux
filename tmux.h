@@ -2136,6 +2136,8 @@ void		 window_set_name(struct window *, const char *);
 void		 window_remove_ref(struct window *);
 void		 winlink_clear_flags(struct winlink *);
 void		 window_mode_attrs(struct grid_cell *, struct options *);
+void		 window_reflow(struct window *);
+void		 window_pane_reflow(struct window_pane *);
 
 /* layout.c */
 u_int		 layout_count_cells(struct layout_cell *);
