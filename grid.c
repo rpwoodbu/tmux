@@ -472,7 +472,7 @@ grid_reflow(struct grid *dst, struct grid *src, u_int sx)
 
 	u_int px = 0;
 	u_int py = 0;
-	int last_line_wrapped = 1;
+	u_int last_line_wrapped = 1;
 
 	for (u_int line = 0; line < src->sy + src->hsize; line++) {
 		GRID_DEBUG(src, "Working line %u", line);
@@ -488,11 +488,8 @@ grid_reflow(struct grid *dst, struct grid *src, u_int sx)
 			}
 		}
 		for (u_int cell = 0; cell < gl->cellsize; cell++) {
-			grid_set_cell(dst, px, py, gl->celldata + cell);
-			px++;
 			if (px == sx) {
 				GRID_DEBUG(src, "(src) Width %u exceeded, wrapping.", sx);
-				// TODO: Might be a corner case here if we've had to wrap a line that was already wrapped.
 				(dst->linedata + py)->flags |= GRID_LINE_WRAPPED;
 				px = 0;
 				py++;
@@ -501,6 +498,8 @@ grid_reflow(struct grid *dst, struct grid *src, u_int sx)
 					grid_scroll_history(dst);
 				}
 			}
+			grid_set_cell(dst, px, py, gl->celldata + cell);
+			px++;
 		}
 		last_line_wrapped = gl->flags & GRID_LINE_WRAPPED;
 	}
