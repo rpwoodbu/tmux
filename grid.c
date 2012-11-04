@@ -490,7 +490,7 @@ grid_reflow(struct grid *dst, struct grid *src, u_int sx)
 		for (u_int cell = 0; cell < gl->cellsize; cell++) {
 			if (px == sx) {
 				GRID_DEBUG(src, "(src) Width %u exceeded, wrapping.", sx);
-				(dst->linedata + py)->flags |= GRID_LINE_WRAPPED;
+				dst->linedata[py].flags |= GRID_LINE_WRAPPED;
 				px = 0;
 				py++;
 				if (py >= dst->hsize + dst->sy) {
