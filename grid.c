@@ -478,7 +478,6 @@ grid_reflow(struct grid *dst, struct grid *src, u_int sx)
 		GRID_DEBUG(src, "Working line %u", line);
 		struct grid_line *gl = src->linedata + line;
 		if (!prev_line_wrapped) {
-			// TODO: See if you can factor this out, as it is repeated.
 			GRID_DEBUG(src, "(src) Last line didn't wrap.");
 			px = 0;
 			py++;
