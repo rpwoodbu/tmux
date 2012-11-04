@@ -472,12 +472,12 @@ grid_reflow(struct grid *dst, struct grid *src, u_int sx)
 
 	u_int px = 0;
 	u_int py = 0;
-	u_int last_line_wrapped = 1;
+	u_int prev_line_wrapped = 1;
 
 	for (u_int line = 0; line < src->sy + src->hsize; line++) {
 		GRID_DEBUG(src, "Working line %u", line);
 		struct grid_line *gl = src->linedata + line;
-		if (!last_line_wrapped) {
+		if (!prev_line_wrapped) {
 			// TODO: See if you can factor this out, as it is repeated.
 			GRID_DEBUG(src, "(src) Last line didn't wrap.");
 			px = 0;
@@ -501,6 +501,6 @@ grid_reflow(struct grid *dst, struct grid *src, u_int sx)
 			grid_set_cell(dst, px, py, gl->celldata + cell);
 			px++;
 		}
-		last_line_wrapped = gl->flags & GRID_LINE_WRAPPED;
+		prev_line_wrapped = gl->flags & GRID_LINE_WRAPPED;
 	}
 }
