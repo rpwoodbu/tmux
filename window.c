@@ -1234,7 +1234,7 @@ window_pane_reflow(struct window_pane *wp)
 	struct grid	*gd = wp->base.grid;
 	struct grid	*new_grid = grid_create(gd->sx, gd->sy, gd->hlimit);
 
-	grid_reflow(new_grid, gd, wp->sx);
+	wp->screen->cy -= grid_reflow(new_grid, gd, wp->sx);
 	wp->base.grid = new_grid;
 	grid_destroy(gd);
 }

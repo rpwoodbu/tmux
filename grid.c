@@ -463,8 +463,9 @@ grid_duplicate_lines(
 
 /*
  * Reflow lines from src grid into dst grid based on width sx.
+ * Returns number of lines fewer in the visible area, or zero.
  */
-void
+u_int
 grid_reflow(struct grid *dst, const struct grid *src, u_int sx)
 {
 	GRID_DEBUG(src, "(src) sx=%u", sx);
@@ -502,4 +503,12 @@ grid_reflow(struct grid *dst, const struct grid *src, u_int sx)
 		}
 		prev_line_wrapped = gl->flags & GRID_LINE_WRAPPED;
 	}
+
+	/* Account for final line, which never wraps. */
+	py++;
+
+	if (py > src->sy)
+		return 0;
+	else
+		return src->sy - py;
 }
