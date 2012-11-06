@@ -465,7 +465,7 @@ grid_duplicate_lines(
  * Reflow lines from src grid into dst grid based on width sx.
  */
 void
-grid_reflow(struct grid *dst, struct grid *src, u_int sx)
+grid_reflow(struct grid *dst, const struct grid *src, u_int sx)
 {
 	GRID_DEBUG(src, "(src) sx=%u", sx);
 	GRID_DEBUG(dst, "(dst)");
