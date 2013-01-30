@@ -468,33 +468,25 @@ grid_duplicate_lines(
 u_int
 grid_reflow(struct grid *dst, const struct grid *src, u_int sx)
 {
-	GRID_DEBUG(src, "(src) sx=%u", sx);
-	GRID_DEBUG(dst, "(dst)");
-
 	u_int px = 0;
 	u_int py = 0;
 	u_int prev_line_wrapped = 1;
 
 	for (u_int line = 0; line < src->sy + src->hsize; line++) {
-		GRID_DEBUG(src, "Working line %u", line);
 		struct grid_line *gl = src->linedata + line;
 		if (!prev_line_wrapped) {
-			GRID_DEBUG(src, "(src) Last line didn't wrap.");
 			px = 0;
 			py++;
 			if (py >= dst->hsize + dst->sy) {
-				GRID_DEBUG(dst, "(dst) Having to scroll (py=%u).", py);
 				grid_scroll_history(dst);
 			}
 		}
 		for (u_int cell = 0; cell < gl->cellsize; cell++) {
 			if (px == sx) {
-				GRID_DEBUG(src, "(src) Width %u exceeded, wrapping.", sx);
 				dst->linedata[py].flags |= GRID_LINE_WRAPPED;
 				px = 0;
 				py++;
 				if (py >= dst->hsize + dst->sy) {
-					GRID_DEBUG(dst, "(dst) Having to scroll (py=%u).", py);
 					grid_scroll_history(dst);
 				}
 			}
