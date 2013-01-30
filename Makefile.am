@@ -102,7 +102,6 @@ dist_tmux_SOURCES = \
 	cmd-new-window.c \
 	cmd-paste-buffer.c \
 	cmd-pipe-pane.c \
-	cmd-reflow-pane.c \
 	cmd-refresh-client.c \
 	cmd-rename-session.c \
 	cmd-rename-window.c \
