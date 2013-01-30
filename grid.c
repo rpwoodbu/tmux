@@ -471,9 +471,10 @@ grid_reflow(struct grid *dst, const struct grid *src, u_int sx)
 	u_int px = 0;
 	u_int py = 0;
 	u_int prev_line_wrapped = 1;
+	struct grid_line *gl = NULL;
 
 	for (u_int line = 0; line < src->sy + src->hsize; line++) {
-		struct grid_line *gl = src->linedata + line;
+		gl = src->linedata + line;
 		if (!prev_line_wrapped) {
 			px = 0;
 			py++;
