@@ -499,6 +499,9 @@ grid_reflow(struct grid *dst, const struct grid *src, u_int sx)
 				}
 			}
 			grid_set_cell(dst, px, py, gl->celldata + cell);
+			if (gl->celldata[cell].flags & GRID_FLAG_UTF8) {
+				grid_set_utf8(dst, px, py, gl->utf8data + cell);
+			}
 			px++;
 		}
 		prev_line_wrapped = gl->flags & GRID_LINE_WRAPPED;
