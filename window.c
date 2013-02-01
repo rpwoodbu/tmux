@@ -943,7 +943,7 @@ window_pane_alternate_off(struct window_pane *wp, struct grid_cell *gc,
 	 * the current size.
 	 */
 	wp->base.grid->flags |= GRID_HISTORY;
-	if (sy > wp->saved_grid->sy)
+	if (sy > wp->saved_grid->sy || sx != wp->saved_grid->sx)
 		screen_resize(s, sx, sy, 1);
 
 	grid_destroy(wp->saved_grid);
