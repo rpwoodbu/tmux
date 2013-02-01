@@ -1214,16 +1214,14 @@ window_mode_attrs(struct grid_cell *gc, struct options *oo)
 	gc->attr |= options_get_number(oo, "mode-attr");
 }
 
-/* Reflow all panes in a window, if the window option is set. */
+/* Reflow all panes in a window. */
 void
 window_reflow(struct window *w)
 {
 	struct window_pane	*wp;
 
-	if (options_get_number(&w->options, "reflow")) {
-		TAILQ_FOREACH(wp, &w->panes, entry)
-			window_pane_reflow(wp);
-	}
+	TAILQ_FOREACH(wp, &w->panes, entry)
+		window_pane_reflow(wp);
 }
 
 /* Reflow window pane. */
