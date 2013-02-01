@@ -121,7 +121,7 @@ screen_set_title(struct screen *s, const char *title)
 
 /* Resize screen. */
 void
-screen_resize(struct screen *s, u_int sx, u_int sy)
+screen_resize(struct screen *s, u_int sx, u_int sy, int reflow)
 {
 	if (sx < 1)
 		sx = 1;
@@ -141,9 +141,9 @@ screen_resize(struct screen *s, u_int sx, u_int sy)
 
 	if (sy != screen_size_y(s))
 		screen_resize_y(s, sy);
-	
-	/* TODO: Don't do this when in alternate screen. */
-	screen_reflow(s, sx);
+
+	if (reflow)
+		screen_reflow(s, sx);
 }
 
 void
@@ -361,8 +361,10 @@ screen_check_selection(struct screen *s, u_int px, u_int py)
 	return (1);
 }
 
+/* Reflow wrapped lines. */
 void
-screen_reflow(struct screen *s, u_int sx) {
+screen_reflow(struct screen *s, u_int sx)
+{
 	struct grid	*old, *new;
 
 	old = s->grid;
