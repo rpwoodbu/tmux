@@ -107,7 +107,6 @@ cmd_select_layout_exec(struct cmd *self, struct cmd_ctx *ctx)
 			layout = layout_set_next(wl->window);
 		else
 			layout = layout_set_previous(wl->window);
-		window_reflow(wl->window);
 		server_redraw_window(wl->window);
 		ctx->info(ctx, "arranging in: %s", layout_set_name(layout));
 		return (CMD_RETURN_NORMAL);
@@ -119,7 +118,6 @@ cmd_select_layout_exec(struct cmd *self, struct cmd_ctx *ctx)
 		layout = layout_set_lookup(args->argv[0]);
 	if (layout != -1) {
 		layout = layout_set_select(wl->window, layout);
-		window_reflow(wl->window);
 		server_redraw_window(wl->window);
 		ctx->info(ctx, "arranging in: %s", layout_set_name(layout));
 		return (CMD_RETURN_NORMAL);
@@ -131,7 +129,6 @@ cmd_select_layout_exec(struct cmd *self, struct cmd_ctx *ctx)
 			ctx->error(ctx, "can't set layout: %s", layoutname);
 			return (CMD_RETURN_ERROR);
 		}
-		window_reflow(wl->window);
 		server_redraw_window(wl->window);
 		ctx->info(ctx, "arranging in: %s", layoutname);
 	}

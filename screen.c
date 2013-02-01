@@ -141,6 +141,9 @@ screen_resize(struct screen *s, u_int sx, u_int sy)
 
 	if (sy != screen_size_y(s))
 		screen_resize_y(s, sy);
+	
+	/* TODO: Don't do this when in alternate screen. */
+	screen_reflow(s, sx);
 }
 
 void
@@ -356,4 +359,17 @@ screen_check_selection(struct screen *s, u_int px, u_int py)
 	}
 
 	return (1);
+}
+
+void
+screen_reflow(struct screen *s, u_int sx) {
+	struct grid	*old, *new;
+
+	old = s->grid;
+	new = grid_create(old->sx, old->sy, old->hlimit);
+
+	s->cy -= grid_reflow(new, old, sx);
+	s->grid = new;
+
+	grid_destroy(old);
 }

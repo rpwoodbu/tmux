@@ -154,7 +154,6 @@ notify_input(struct window_pane *wp, struct evbuffer *input)
 void
 notify_window_layout_changed(struct window *w)
 {
-	window_reflow(w);
 	notify_add(NOTIFY_WINDOW_LAYOUT_CHANGED, NULL, NULL, w);
 	notify_drain();
 }
