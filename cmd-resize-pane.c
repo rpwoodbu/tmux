@@ -113,7 +113,7 @@ cmd_resize_pane_exec(struct cmd *self, struct cmd_ctx *ctx)
 		layout_resize_pane(wp, LAYOUT_TOPBOTTOM, adjust);
 
 	if (args_has(self->args, 'F'))
-	  window_pane_reflow(wp);
+		window_pane_reflow(wp);
 
 	server_redraw_window(wl->window);
 

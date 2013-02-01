@@ -1221,9 +1221,8 @@ window_reflow(struct window *w)
 	struct window_pane	*wp;
 
 	if (options_get_number(&w->options, "reflow")) {
-		TAILQ_FOREACH(wp, &w->panes, entry) {
+		TAILQ_FOREACH(wp, &w->panes, entry)
 			window_pane_reflow(wp);
-		}
 	}
 }
 
@@ -1231,10 +1230,16 @@ window_reflow(struct window *w)
 void
 window_pane_reflow(struct window_pane *wp)
 {
-	struct grid	*gd = wp->base.grid;
-	struct grid	*new_grid = grid_create(gd->sx, gd->sy, gd->hlimit);
+	struct grid	*old, *new;
 
-	wp->screen->cy -= grid_reflow(new_grid, gd, wp->sx);
-	wp->base.grid = new_grid;
-	grid_destroy(gd);
+	if (wp->saved_grid != NULL)
+		return;
+
+	old = wp->base.grid;
+	new = grid_create(old->sx, old->sy, old->hlimit);
+
+	wp->screen->cy -= grid_reflow(new, old, wp->sx);
+	wp->base.grid = new;
+
+	grid_destroy(old);
 }
