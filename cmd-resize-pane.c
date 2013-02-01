@@ -31,8 +31,8 @@ enum cmd_retval	 cmd_resize_pane_exec(struct cmd *, struct cmd_ctx *);
 
 const struct cmd_entry cmd_resize_pane_entry = {
 	"resize-pane", "resizep",
-	"DLRt:U", 0, 1,
-	"[-DLRU] " CMD_TARGET_PANE_USAGE " [adjustment]",
+	"DFLRt:U", 0, 1,
+	"[-DFLRU] " CMD_TARGET_PANE_USAGE " [adjustment]",
 	0,
 	cmd_resize_pane_key_binding,
 	NULL,
@@ -111,6 +111,10 @@ cmd_resize_pane_exec(struct cmd *self, struct cmd_ctx *ctx)
 		layout_resize_pane(wp, LAYOUT_TOPBOTTOM, -adjust);
 	else if (args_has(self->args, 'D'))
 		layout_resize_pane(wp, LAYOUT_TOPBOTTOM, adjust);
+
+	if (args_has(self->args, 'F'))
+		window_pane_reflow(wp);
+
 	server_redraw_window(wl->window);
 
 	return (CMD_RETURN_NORMAL);

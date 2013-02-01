@@ -1213,3 +1213,33 @@ window_mode_attrs(struct grid_cell *gc, struct options *oo)
 	colour_set_bg(gc, options_get_number(oo, "mode-bg"));
 	gc->attr |= options_get_number(oo, "mode-attr");
 }
+
+/* Reflow all panes in a window, if the window option is set. */
+void
+window_reflow(struct window *w)
+{
+	struct window_pane	*wp;
+
+	if (options_get_number(&w->options, "reflow")) {
+		TAILQ_FOREACH(wp, &w->panes, entry)
+			window_pane_reflow(wp);
+	}
+}
+
+/* Reflow window pane. */
+void
+window_pane_reflow(struct window_pane *wp)
+{
+	struct grid	*old, *new;
+
+	if (wp->saved_grid != NULL)
+		return;
+
+	old = wp->base.grid;
+	new = grid_create(old->sx, old->sy, old->hlimit);
+
+	wp->screen->cy -= grid_reflow(new, old, wp->sx);
+	wp->base.grid = new;
+
+	grid_destroy(old);
+}
